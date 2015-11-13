@@ -3,10 +3,36 @@
 <div class="container">
 
 	<?php 
-		session_start();
 		include("../dao/conexao.php");
 		$link = new conexao();
 		$conexao = $link->conecta();
+
+		//$pessoa_f = $data_f = $semestre_f = "";
+		$var_where = "";
+		
+		if (isset($_GET['aluno'])) {
+			
+			$var_where = " WHERE ";
+			$i = 0;
+			
+			if ($_GET['aluno'] != "") {
+			 	$var_where .= " pes.id = ".$_GET['aluno'];
+			 	$i++;
+			}
+			if ($_GET['data'] != "") {
+			 	if ($i != 0) {
+			 		$var_where .= " AND ";
+			 	}
+			 	$var_where .= " sol.data = '".$_GET['data']."'";
+			 	$i++;
+			}
+			if ($_GET['semestre'] != "") {
+			 	if ($i != 0) {
+			 		$var_where .= " AND ";
+			 	}
+			 	$var_where .= " sol.semestre = '".$_GET['semestre']."'";
+			}
+		}
 
 		$sql = "SELECT 
 					sol.id, pes.nome AS aluno, pescor.nome AS coordenador, sol.data, sol.semestre 
@@ -16,7 +42,8 @@
 				LEFT JOIN coordenador cor 
 					ON sol.id_coordenador = cor.id 
 				LEFT JOIN pessoa pescor 
-					ON cor.id_pessoa = pescor.id
+					ON cor.id_pessoa = pescor.id 
+				".$var_where." 
 				ORDER BY sol.id DESC";
 		$query = $conexao->query($sql);
 	?>

@@ -12,17 +12,25 @@
 <body>
 
 <nav>
-
+    <?php 
+      session_start();
+    ?>
     <div class="nav-wrapper blue darken-4">
     <img src="../img/logo.png">
       <a href="#!" class="brand-logo">Orientação acadêmica - UFBA</a>
       <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
       <ul class="right hide-on-med-and-down">
-        <li><a href="solicitacao.php">Solicitações</a></li>
-        <li><a href="pessoa.php">Pessoas</a></li>
-        <li><a href="">Cursos</a></li>
-        <li><a href="">Departamentos</a></li>
-        <li><a href="">Disciplinas</a></li>
+        <li><a href="solicitacao_filtro.php">Solicitações</a></li>
+        <?php 
+          if ($_SESSION['tipo'] == "A"){ ?>
+            <li><a href="pessoa.php">Pessoas</a></li>
+            <li><a href="">Cursos</a></li>
+            <li><a href="">Departamentos</a></li>
+            <li><a href="">Disciplinas</a></li>
+          <?php
+          }
+        ?>
+        <li><a href="index.php">Sair</a></li>
       </ul>
       <ul class="side-nav" id="mobile-demo">
         <li><a href="">Requerimentos</a></li>
