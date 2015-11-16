@@ -1,94 +1,66 @@
-<?php 
-	include("cabecalho.php");
-
-	if (isset($_GET['id'])) {
-		
-		include("../dao/conexao.php");
-		$link = new conexao();
-		$conexao = $link->conecta();
-
-		//Traz os dados para preencher os campos
-		$sql   = "SELECT * FROM pessoa WHERE id = ".$_GET['id'];
-		$query = $conexao->query($sql);
-		$linha = $query->fetch(PDO::FETCH_OBJ);
-	} 
-?>
-
-<div class="container">	
+<!DOCTYPE html>
+<html>
+<head>
 	
-	<form>
-	
-		<div style="margin:20px;">
-			<center>
-				<a href="pessoa.php"> <button type="button" class="btn btn-default btn-sm">Voltar <i class="material-icons">backspace</i></button> </a>
-				
-				<button id="incluir" class="btn waves-effect waves-light" type="button" onclick="inserePessoa();">Incluir<i class="material-icons right">send</i></button>
-				
-				<button id="alterar" class="btn waves-effect waves-light" type="button" onclick="atualizaPessoa();">Alterar<i class="material-icons">replay</i></button>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+	<title>Dash</title>
 
-				<button id="excluir" class="btn waves-effect waves-light" type="button" onclick= 
-					<?php if( isset($_GET['id']) ){
-						echo "excluiPessoa(" . $_GET['id'] . ")";
-					}else{ echo ""; }?> >Excluir<i class="material-icons">delete</i>
-				</button>
-			</center>
-		</div>
+</head>
+<body>
 
-		<h5 style="text-align:center;">Cadastro de pessoa</h5>	
+    <main style="margin-top:1%;">
+      <div class="row">
+        <div class="col s12 m8 l4 offset-m2 offset-l4" >
+          <div class="card-container col s12  grey lighten-5 z-depth-3">
+          <h5 style="text-align:center;">Cadastro de pessoa</h5>   
+            <form action="../controller/verifica_login.php" method="post">
+              <div class="row" >
+                <div class="input-field col s12">
+		   			<input type="hidden" id="id" name="id">
+		   			<input type="text" class="form-control" id="nome" name="nome" required>
+	    			<label>Nome</label>
+              	</div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+	   				<input type="text" class="form-control" id="matricula" name="matricula" required>
+	   				<label>Matrícula</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  	<label>CPF</label>
+	   				<input type="text" class="form-control" id="cpf" name="cpf" required>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                	<label>Tipo, A=Aluno, P=Profesor</label>
+				   	<input type="text" class="form-control" id="tipo" name="tipo" required>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+        			<label>E-mail</label>
+	   				<input type="text" class="form-control" id="email" name="email" required>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col s12">
+					<center>
+						<a href="index.php"> <button type="button" class="btn btn-default btn-sm">Voltar <i class="material-icons">backspace</i></button> </a>
+						<button id="incluir" class="btn waves-effect waves-light" type="button" onclick="inserePessoa();">Incluir<i class="material-icons right">send</i></button>
+                	</center>
+                </div>
+              </div>
 
-	    <input type="hidden" id="id" name="id">
-		
-		<label>Nome</label>
-	    <input type="text" class="form-control" id="nome" name="nome" required>
-	   	
-	   	<label>Matrícula</label>
-	   	<input type="text" class="form-control" id="matricula" name="matricula" required>
-
-	    <label>CPF</label>
-	   	<input type="text" class="form-control" id="cpf" name="cpf" required>
-
-	   	<label>Tipo, A=Aluno, P=Profesor</label>
-	   	<input type="text" class="form-control" id="tipo" name="tipo" required>
-
-	   	<label>E-mail</label>
-	   	<input type="text" class="form-control" id="email" name="email" required>
-		
-	</form>
-
-</div>
-
-<?php if (isset($_GET["id"])) : ?>
-	
-	<script>
-		//Atribui valor aos campos
-		var id  		= document.getElementById("id");
-		id.value    	= <?php echo $_GET['id'] ?>;
-
-		var nome		= document.getElementById("nome");
-		nome.value  	= "<?php echo $linha->nome ?>";
-
-		var matricula	= document.getElementById("matricula");
-		matricula.value = "<?php echo $linha->matricula ?>";
-		
-		var cpf	  		= document.getElementById("cpf");
-		cpf.value 		= "<?php echo $linha->cpf ?>";
-
-		var tipo   		= document.getElementById("tipo");
-		tipo.value 		= "<?php echo $linha->tipo ?>";
-		
-		var email 		= document.getElementById("email");
-		email.value 	= "<?php echo $linha->email ?>";
-	</script>
-
-<?php endif; ?>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
 
 <?php include("rodape.php"); ?>
-
-<!-- Oculta os botões -->
-<?php 
-	if (isset($_GET['id'])){
-		?> <script> ocultaIncluir(); </script> <?php 
-	}else{
-		?> <script> ocultaAlterar(); ocultaExcluir();</script> <?php 
-	}
-?>

@@ -55,7 +55,7 @@
                   <a href="#" class="">Esqueci a senha</a>
                 </div>
                 <div class="col s6 right-align">
-                  <a href="#" class="">Registrar-se</a>
+                  <a href="form_pessoa.php" class="">Registrar-se</a>
                 </div>
               </div>
             </form>

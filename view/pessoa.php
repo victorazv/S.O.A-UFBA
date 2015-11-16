@@ -3,13 +3,11 @@
 <div class="container">
 
 	<?php 
-		session_start();
-		//var_dump($_SESSION['email']);
 		include("../dao/conexao.php");
 		$link = new conexao();
 		$conexao = $link->conecta();
 
-		$sql = "SELECT * FROM pessoa ORDER BY nome DESC";
+		$sql = "SELECT * FROM pessoa ORDER BY nome ASC";
 		$query = $conexao->query($sql);
 		//$query = mysql_query($sql);
 		/*if(!$query){
@@ -21,7 +19,7 @@
 	<div style="margin:20px;">
 		<center> 
 			<h5>Pessoas do sistema</h5>
-			<a href="form_pessoa.php"> <button type="button" class="waves-effect waves-light btn">Novo</button> </a>
+			<!--<a href="form_pessoa.php"> <button type="button" class="waves-effect waves-light btn">Novo</button> </a>-->
 		</center>
 	</div>
 	
@@ -45,7 +43,7 @@
 				<?php endif ?>
 
 				<tr>
-					<td><a href= <?php echo "form_pessoa.php?id=".$linha->id; ?> ><img src="../img/lapis.png"></a></td>
+					<td><a href= <?php echo "form_edita_pessoa.php?id=".$linha->id; ?> ><img src="../img/lapis.png"></a></td>
 					<td> <?php echo utf8_encode($linha->nome) ?> 	 </td>
 					<td> <?php echo $linha->matricula ?> </td>
 					<td> <?php echo $linha->cpf ?> 		 </td>

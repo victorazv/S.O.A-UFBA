@@ -16,7 +16,7 @@ function inserePessoa(){
 	}).done(function() {
 	  	$( this ).addClass( "done" );
 		alert("Registro incluido com sucesso!");
-		window.location.assign("../view/pessoa.php");
+		window.location.assign("../view/index.php");
 	});
 
 }
@@ -124,4 +124,19 @@ function excluiDisciplinaSolicitacao(id){
 	  	location.reload();
 	  	//window.location.assign("../view/pessoa.php");
 	});
+}
+
+/* Filtro */
+
+function filtraSolicitacao(){
+	//pegando os valores com jquery
+	var aluno 	 = $("#nome")[0].value;
+	var data 	 = $("#data")[0].value;
+	var semestre = $("#semestre")[0].value;
+
+	if (aluno == "" && data == "" && semestre == "") {
+		window.location.assign("../view/solicitacao.php");
+	}else{
+		window.location.assign("../view/solicitacao.php?aluno="+aluno+"&data="+data+"&semestre="+semestre);
+	}
 }
