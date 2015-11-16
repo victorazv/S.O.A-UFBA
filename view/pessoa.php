@@ -47,7 +47,11 @@
 					<td> <?php echo utf8_encode($linha->nome) ?> 	 </td>
 					<td> <?php echo $linha->matricula ?> </td>
 					<td> <?php echo $linha->cpf ?> 		 </td>
-					<td> <?php echo $linha->tipo ?>  	 </td>
+					<td> <?php if ($linha->tipo == "A") {
+						echo "Aluno";
+					}else{
+						echo "Professor";
+					} ?> </td>
 					<td> <?php echo $linha->email ?> 	 </td>
 				</tr>
 			<?php endwhile ?>

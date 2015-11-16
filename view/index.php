@@ -11,10 +11,10 @@
 
 </head>
 
-<body style="background-color:#F5F5F5">
+<body style="background-color:#F5F5F5" onload="verificaSessao()">
     	<?php 
-    		if (isset($_GET['email'])) {
-    			echo"<h6 style='text-align:center; color:#c0392b;'>E-mail ou senha incorreta.</h6>";
+    		if (isset($_GET['matricula'])) {
+    			echo"<h6 style='text-align:center; color:#c0392b;'>Matrícula ou senha incorreta.</h6>";
 			 }
     	?>
     	
@@ -27,8 +27,8 @@
               <div class="row" >
                 <div class="input-field col s12">
                   <i class="mdi-action-account-circle prefix"></i>
-                  <input placeholder="E-mail" id="email" type="text" name="email" class="validate ">
-                  <label>E-mail</label>
+                  <input placeholder="Matrícula" id="matricula" type="text" name="matricula" class="validate ">
+                  <label>Matrícula</label>
                 </div>
               </div>
               <div class="row">
@@ -51,10 +51,7 @@
               </div>
               <div class="row">
                 <div class="divider"></div>
-                <div class="col s6">
-                  <a href="#" class="">Esqueci a senha</a>
-                </div>
-                <div class="col s6 right-align">
+                  <div class="col s12 right-align">
                   <a href="form_pessoa.php" class="">Registrar-se</a>
                 </div>
               </div>
@@ -64,8 +61,4 @@
       </div>
     </main>
 
-<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
-</body>
-
-</html>
+<?php include("rodape.php"); ?>

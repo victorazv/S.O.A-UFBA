@@ -8,8 +8,8 @@ if (isset($_GET['operacao'])) {
 
 	if ($_GET['operacao'] == "insert") {
 		
-		$sql = "INSERT INTO `pessoa` (`nome`, `matricula`, `cpf`, `tipo`, `email`) 
-		VALUE ('".$_POST['nome']."', '".$_POST['matricula']."', '".$_POST['cpf']."', '".$_POST['tipo']."', '".$_POST['email']."');";
+		$sql = "INSERT INTO `pessoa` (`nome`, `matricula`, `cpf`, `tipo`, `email`, `senha`) 
+		VALUE ('".$_POST['nome']."', '".$_POST['matricula']."', '".$_POST['cpf']."', '".$_POST['tipo']."', '".$_POST['email']."', '".$_POST['senha']."');";
 		$conexao->exec($sql);
 
 	}elseif($_GET['operacao'] == "update"){

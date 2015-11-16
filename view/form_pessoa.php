@@ -38,14 +38,24 @@
               </div>
               <div class="row">
                 <div class="input-field col s12">
-                	<label>Tipo, A=Aluno, P=Profesor</label>
-				   	<input type="text" class="form-control" id="tipo" name="tipo" required>
+                  <select id="tipo" required>
+                    <option value="" disabled selected>Selecione</option>
+                    <option value="A">Aluno</option>
+                    <option value="P">Professor</option>
+                  </select>
+                <label>Tipo</label>
                 </div>
               </div>
               <div class="row">
                 <div class="input-field col s12">
         			<label>E-mail</label>
-	   				<input type="text" class="form-control" id="email" name="email" required>
+	   				<input type="email" class="form-control" id="email" name="email" required>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+              <label>Senha</label>
+            <input type="password" class="form-control" id="senha" name="senha" required>
                 </div>
               </div>
               <div class="row">

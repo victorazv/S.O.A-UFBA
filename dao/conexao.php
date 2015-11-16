@@ -5,6 +5,9 @@ class conexao{
 	function conecta(){
 		
 		$host = "localhost";
+		//$banco = "grweb579_soa";
+		//$usuario = "grweb579_victor";
+		//$senha = "core2duo";
 		$banco = "orientacao_academica";
 		$usuario = "root";
 		$senha = "";

@@ -6,7 +6,7 @@
 	$conexao = $link->conecta();
 
 	//Traz os dados para preencher os campos select
-	$sql   = "SELECT id, nome FROM pessoa";
+	$sql   = "SELECT id, nome FROM pessoa WHERE tipo = 'A'";
 	$pessoas = $conexao->query($sql);	
 	$sql   = "SELECT id, nome FROM disciplina";
 	$disciplinas = $conexao->query($sql);	
@@ -30,71 +30,73 @@
 	
 		<div style="margin:20px;">
 			<center>
-
 				<a href="solicitacao.php"> <button type="button" class="btn btn-default btn-sm">Voltar <i class="material-icons">backspace</i></button> </a>
 				<button id="incluir" class="btn waves-effect waves-light" type="button" onclick="insereSolicitacao();">Incluir<i class="material-icons right">send</i></button>
 				<button id="alterar" class="btn waves-effect waves-light" type="button" onclick="atualizaSolicitacao();">Alterar<i class="material-icons">replay</i></button>
-				<button id="excluir" class="btn waves-effect waves-light" type="button" onclick= 
-					<?php if( isset($_GET['id']) ){
-						echo "excluiPessoa(" . $_GET['id'] . ")";
-					}else{ echo ""; }?> >Excluir<i class="material-icons">delete</i>
-				</button>
-			
 			</center>
 		</div>
 
-		<h5 style="text-align:center;">Cadastro de solicitação</h5>	
 
-	    <input type="hidden" id="id">
-	   	<input type="hidden" id="coordenador">
-			
-  		<label>Aluno</label>
-  		<select id="nome" required>
-      		<option value="" disabled selected>Selecione</option>
-      		<?php 
-      			while($pessoa = $pessoas->fetch(PDO::FETCH_OBJ)){
-      				echo "<option value='".$pessoa->id."''>".utf8_encode($pessoa->nome)."</option>" ;
-      			} 
-      		?>
-    	</select>
-   	
-    	<div style="width:40%; float:left; margin-right:20%;">
-    		<label>Data</label>
-   			<input type="date" class="form-control" id="data" name="data" required>
-   		</div>	
-   		<div style="width:40%;  float:left;">
-   			<label>Semestre</label>
-   			<input type="text" class="form-control" id="semestre" name="semestre" value="2015.1" required>
-	   	</div>
-		
-	</form>
+    <div style="margin-top:5%;">
+        <div class="col s12 m8 l4 offset-m2 offset-l4" >
+          <div class="card-container col s12  grey lighten-5 z-depth-3">
+
+			<h5 style="text-align:center;">Cadastro de solicitação</h5>	
+
+		    <input type="hidden" id="id">
+		   	<input type="hidden" id="coordenador">
+			<center>
+	  		
+	  		<div style="width:50%; text-align:left;">
+	  		<label>Aluno</label>
+	  		<select id="nome" required >
+	      		<option value="" disabled selected>Selecione</option>
+	      		<?php 
+	      			while($pessoa = $pessoas->fetch(PDO::FETCH_OBJ)){
+	      				echo "<option value='".$pessoa->id."''>".utf8_encode($pessoa->nome)."</option>" ;
+	      			} 
+	      		?>
+	    	</select>
+	    	</div>
+	   		<div class="col s12" style="width:50%; text-align:left;">
+	    		<label>Data</label>
+	   			<input type="date" class="form-control" id="data" name="data" required>
+	   		</div>
+	   		<div class="col s12" style="width:50%; text-align:left;">
+	   			<label>Semestre</label>
+	   			<input type="text" class="form-control" id="semestre" name="semestre" value="2015.1" required>
+			</div>
+			</center>
+		</form>
+		<div class="divider"></div>
 	
 <?php 
 //Se tiver $query_dis, libera a consulta. Se tem q variável, significa que é uma alteração e não uma inclusão
 if(isset($query_dis)){ ?>
 	<div>
 		<center>
-			<button style="text-align:center;" id="incluir" class="btn waves-effect waves-light" type="button" onclick="insereDisciplinaSolicitacao();">Incluir disciplina<i class="material-icons right">send</i></button>
+			<button style="text-align:center; margin-top:20px;" id="incluir" class="btn waves-effect waves-light" type="button" onclick="insereDisciplinaSolicitacao();">Incluir disciplina<i class="material-icons right">send</i></button>
+		
+			<form>	
+				<input type="hidden" id="id_dis">
+			   	<input type="hidden" id="id_sol">
+				
+				<div class="col s12" style="width:50%; text-align:left;">
+		  			<label>Disciplina</label>
+		  			<select id="disciplina" required>
+		      			<option value="" disabled selected>Selecione</option>
+		      			<?php 
+		      				while($disciplina = $disciplinas->fetch(PDO::FETCH_OBJ)){
+		      					echo "<option value='".$disciplina->id."''>".utf8_encode($disciplina->nome)."</option>" ;
+		      				} 
+		      			?>
+		    		</select>
+	    		</div>
 		</center>
-		<form>
-			
-			<input type="hidden" id="id_dis">
-		   	<input type="hidden" id="id_sol">
-			
-  			<label>Disciplina</label>
-  			<select id="disciplina" required>
-      			<option value="" disabled selected>Selecione</option>
-      			<?php 
-      				while($disciplina = $disciplinas->fetch(PDO::FETCH_OBJ)){
-      					echo "<option value='".$disciplina->id."''>".utf8_encode($disciplina->nome)."</option>" ;
-      				} 
-      			?>
-    		</select>
-
-		</form>
+			</form>
 
 	</div>
-
+	<div class="divider"></div>
 	<div>
 		<h5 style='text-align:center;'>Disciplinas da solicitação:</h5>	
 		<table class='bordered'>
@@ -106,7 +108,7 @@ if(isset($query_dis)){ ?>
 			<?php endwhile ?>
 		</table>
 	</div>
-<?php } ?>
+	<?php } ?>
 
 </div>
 

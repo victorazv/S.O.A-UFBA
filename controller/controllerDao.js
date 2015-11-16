@@ -7,11 +7,12 @@ function inserePessoa(){
 	var cpf 	  = $("#cpf")[0].value;
 	var tipo 	  = $("#tipo")[0].value;
 	var email 	  = $("#email")[0].value;
+	var senha 	  = $("#senha")[0].value;
 
 	$.ajax({
 		method: "POST",
 		url: "../dao/crud_pessoa.php?operacao=insert",
-		data: {nome: nome, matricula: matricula, cpf: cpf, tipo: tipo, email, email},
+		data: {nome: nome, matricula: matricula, cpf: cpf, tipo: tipo, email: email, senha: senha},
 		context: document.body
 	}).done(function() {
 	  	$( this ).addClass( "done" );
@@ -38,7 +39,7 @@ function insereSolicitacao(){
 	});
 }
 
-function insereDisciplinaSolicitacao(){			
+function insereDisciplinaSolicitacao(){
 	//pegando os valores com jquery
 	var disciplina 	 = $("#disciplina")[0].value;
 	var solicitacao	 = $("#id")[0].value;	
@@ -46,9 +47,15 @@ function insereDisciplinaSolicitacao(){
 		method: "POST",
 		url: "../dao/crud_solicitacao.php?operacao=insert_dis",
 		data: {disciplina: disciplina, solicitacao: solicitacao},
-		context: document.body
-	}).done(function() {
-	  $( this ).addClass( "done" );
+		context: document.body,
+		success: function(resultado){
+			if(resultado == "cadastrada"){
+				alert("Disciplina já cadastrada na Solicitação!");
+			}
+			if(resultado == "limite"){
+				alert("Limite de disciplinas da Solicitação atingido!");
+			}
+		} 
 	});
 	location.reload();
 }
@@ -112,7 +119,6 @@ function excluiPessoa(id){
 }
 
 function excluiDisciplinaSolicitacao(id){
-	console.log(id);
 	$.ajax({
 	  	method: "POST",
 	  	url: "../dao/crud_solicitacao.php?operacao=delete_dis",
@@ -122,7 +128,6 @@ function excluiDisciplinaSolicitacao(id){
 	  	$( this ).addClass( "done" );
 	  	alert("Disciplina excluída com sucesso!");
 	  	location.reload();
-	  	//window.location.assign("../view/pessoa.php");
 	});
 }
 
@@ -138,5 +143,17 @@ function filtraSolicitacao(){
 		window.location.assign("../view/solicitacao.php");
 	}else{
 		window.location.assign("../view/solicitacao.php?aluno="+aluno+"&data="+data+"&semestre="+semestre);
+	}
+}
+
+function filtraRelatorioSolicitacao(){
+	//pegando os valores com jquery
+	var disciplina 	= $("#disciplina")[0].value;
+	var semestre 	= $("#semestre")[0].value;
+
+	if (disciplina == "" && semestre == "") {
+		window.location.assign("../view/relatorio_solicitacao.php");
+	}else{
+		window.location.assign("../view/relatorio_solicitacao.php?disciplina="+disciplina+"&semestre="+semestre);
 	}
 }

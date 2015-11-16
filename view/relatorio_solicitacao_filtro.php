@@ -5,8 +5,8 @@
 		$link = new conexao();
 		$conexao = $link->conecta();
 		
-		$sql   = "SELECT id, nome FROM pessoa WHERE tipo = 'A'";
-		$pessoas = $conexao->query($sql);	
+		$sql   = "SELECT id, nome FROM disciplina";
+		$disciplinas = $conexao->query($sql);	
 	?>
 
     
@@ -14,24 +14,19 @@
         <div class="col s12 m8 l4 offset-m2 offset-l4" >
           
           <div class="card-container col s12  grey lighten-5 z-depth-3">
-          	<h5 style="text-align:center;">Filtro - Solicitações do sistema</h5>   
+          	<h5 style="text-align:center;">Filtro - Relatório de Solicitações</h5>
             <form action="">  
                 <div class="input-field col s12">                  				
-		  			<select id="nome" required>
+		  			<select id="disciplina" name="disciplina" required>
 		      			<option value="" disabled selected>Selecione</option>
 		      			<?php 
-		      				while($pessoa = $pessoas->fetch(PDO::FETCH_OBJ)){
-		      					echo "<option value='".$pessoa->id."''>".utf8_encode($pessoa->nome)."</option>" ;
+		      				while($disciplina = $disciplinas->fetch(PDO::FETCH_OBJ)){
+		      					echo "<option value='".$disciplina->id."''>".utf8_encode($disciplina->nome)."</option>" ;
 		      				} 
 		      			?>
 		    		</select>
-	                <label>Aluno</label>
+	                <label>Disciplina</label>
               	</div>
-              
-                <div class="col s12">
-	   				<label>Data</label>
-	   				<input type="date" class="form-control" id="data" name="data" required>
-                </div>
               			
                	<div class="input-field col s12">
                 	<label>Semestre</label>
@@ -40,7 +35,7 @@
 
               	<!-- Botão -->
                 <div class="col s12" style="margin-bottom:20px;">
-                  <center> <button type="button" class="waves-effect waves-light btn" onclick="filtraSolicitacao();">Pesquisar</button> </center>
+                  <center> <button type="button" class="waves-effect waves-light btn" onclick="filtraRelatorioSolicitacao();">Pesquisar</button> </center>
                 </div>
               
             </form>
